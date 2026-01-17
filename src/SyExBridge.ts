@@ -23,7 +23,7 @@ export class SysExBridge {
         await this._midiOut.send([
             0xf0,   // SysEx header.
             0x41,   // Roland/BOSS manufacturer identifier.
-            0x00, 0x00, 0x00, 0x00, // Katna identifier.
+            0x00, 0x00, 0x00, 0x00, 0x33, // Katna identifier.
 
             // Use GET or SET mode.
             mode === 'GET' ? 0x11 : 0x12,   
