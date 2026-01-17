@@ -1,5 +1,5 @@
 import JZZ from "jzz";
-import { SysExBridge } from "./SyExBridge";
+import { SysExBridge } from "./SysExBridge";
 
 interface ConnectArgs {
     deviceName?: string;
