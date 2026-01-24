@@ -73,4 +73,12 @@ export class KatanaController {
             gain
         );
     }
+
+    async setVolume(vol: number): Promise<void> {
+        // PRM_KNOB_POS_VOLUME
+        await this._sysex.setParam(
+            [0x60, 0x00, 0x06, 0x52],
+            vol
+        );
+    }
 }
