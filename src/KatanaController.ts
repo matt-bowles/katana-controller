@@ -41,10 +41,10 @@ export class KatanaController {
 
         if (!outPort) throw new Error(`Could not find MIDI output named "${deviceName}"`);
         if (!inPort) throw new Error(`Could not find MIDI input named "${deviceName}"`);
-        
+
         const midiInput = await midi.openMidiIn(inPort);
         const midiOutput = await midi.openMidiOut(outPort);
-        
+
         const sysExBridge = new SysExBridge(midiOutput);
         const kat = new KatanaController({
             deviceName,
@@ -69,6 +69,23 @@ export class KatanaController {
 
     async setVolume(vol: number): Promise<void> {
         await this._sysex.setParam(KatanaParameters.PRM_KNOB_POS_VOLUME, vol);
+    }
+
+    // TODO: support sneaky amps.
+    // TODO: add variation arg.
+    async setAmpType(ampType: 'ACOUSTIC' | 'CLEAN' | 'CRUNCH' | 'LEAD' | 'BROWN'): Promise<void> {
+        const ampTypeMap = {
+            ACOUSTIC: 0x01,
+            CLEAN: 0x08,
+            CRUNCH: 0x0B,
+            LEAD: 0x18,
+            BROWN: 0x17,
+        } as const;
+
+        await this._sysex.setParam(
+            new KatanaParameter([0x60, 0x00, 0x00, 0x21]),
+            ampTypeMap[ampType]
+        );
     }
 
     // Not to be confused with amp in/out EQ.

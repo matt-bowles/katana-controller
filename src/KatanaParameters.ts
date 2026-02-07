@@ -6,6 +6,8 @@ export class KatanaParameter {
 }
 
 export const KatanaParameters = {
+    PRM_PREAMP_A_TYPE: new KatanaParameter([0x60, 0x00, 0x00, 0x21]),
+
     PRM_PREAMP_A_GAIN: new KatanaParameter([0x60, 0x00, 0x00, 0x22]),
     PRM_KNOB_POS_VOLUME: new KatanaParameter([0x60, 0x00, 0x06, 0x52]),
 
