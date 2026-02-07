@@ -8,4 +8,8 @@ export class KatanaParameter {
 export const KatanaParameters = {
     PRM_PREAMP_A_GAIN: new KatanaParameter([0x60, 0x00, 0x00, 0x22]),
     PRM_KNOB_POS_VOLUME: new KatanaParameter([0x60, 0x00, 0x06, 0x52]),
+
+    PRM_PREAMP_A_BASS: new KatanaParameter([0x60, 0x00, 0x00, 0x24]),
+    PRM_PREAMP_A_MIDDLE: new KatanaParameter([0x60, 0x00, 0x00, 0x25]),
+    PRM_PREAMP_A_TREBLE: new KatanaParameter([0x60, 0x00, 0x00, 0x26])
 } as const satisfies Record<string, KatanaParameter>;

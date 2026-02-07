@@ -70,4 +70,14 @@ export class KatanaController {
     async setVolume(vol: number): Promise<void> {
         await this._sysex.setParam(KatanaParameters.PRM_KNOB_POS_VOLUME, vol);
     }
+
+    // Not to be confused with amp in/out EQ.
+    async setPreampEq(eq: Partial<{ bass: number, middle: number, treble: number }>): Promise<void> {
+        if (eq.bass !== undefined)
+            await this._sysex.setParam(KatanaParameters.PRM_PREAMP_A_BASS, eq.bass);
+        if (eq.middle !== undefined)
+            await this._sysex.setParam(KatanaParameters.PRM_PREAMP_A_MIDDLE, eq.middle);
+        if (eq.treble !== undefined)
+            await this._sysex.setParam(KatanaParameters.PRM_PREAMP_A_TREBLE, eq.treble);
+    }
 }
