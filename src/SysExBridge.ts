@@ -1,4 +1,5 @@
 import JZZ from "jzz";
+import { KatanaParameter } from "./KatanaParameters";
 
 // https://www.2writers.com/eddie/TutSysEx.htm
 
@@ -15,7 +16,7 @@ export class SysExBridge {
             : 0;    // Checksum is 0 if remainder is 0.
     }
 
-    private async _sendMsg(mode: 'GET' | 'SET', address: Array<number>, value: number): Promise<void> {
+    private async _sendMsg(mode: 'GET' | 'SET', address: [number, number, number, number], value: number): Promise<void> {
         if (address.length !== 4) throw new Error('Invalid address - must be 4 bytes long');
 
         const checksum = this._calculateChecksum([...address, value])
@@ -41,10 +42,10 @@ export class SysExBridge {
         ]);
     }
 
-    async setParam(address: Array<number>, value: number): Promise<void> {
+    async setParam(param: KatanaParameter, value: number): Promise<void> {
         await this._sendMsg(
             'SET',
-            address,
+            param.address,
             value
         )
     }

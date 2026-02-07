@@ -1,5 +1,6 @@
 import JZZ from "jzz";
 import { SysExBridge } from "./SysExBridge";
+import { KatanaParameter, KatanaParameters } from "./KatanaParameters";
 
 interface ConnectArgs {
     deviceName?: string;
@@ -59,26 +60,14 @@ export class KatanaController {
      * See: https://www.vguitarforums.com/smf/index.php?topic=35760.msg261890#msg261890
      */
     private async _enableEditorMode(): Promise<void> {
-        await this._sysex.setParam(
-            [0x7f, 0x00, 0x00, 0x01],
-            1
-        );
+        await this._sysex.setParam({ address: [0x7f, 0x00, 0x00, 0x01] }, 1);
     }
 
     async setGain(gain: number): Promise<void> {
-        // PRM_PREAMP_A_GAIN
-        // https://www.vguitarforums.com/smf/index.php?PHPSESSID=363888b64ff25cb5f469e12b3ec487c5&topic=27749.0
-        await this._sysex.setParam(
-            [0x60, 0x00, 0x00, 0x22],
-            gain
-        );
+        await this._sysex.setParam(KatanaParameters.PRM_PREAMP_A_GAIN, gain);
     }
 
     async setVolume(vol: number): Promise<void> {
-        // PRM_KNOB_POS_VOLUME
-        await this._sysex.setParam(
-            [0x60, 0x00, 0x06, 0x52],
-            vol
-        );
+        await this._sysex.setParam(KatanaParameters.PRM_KNOB_POS_VOLUME, vol);
     }
 }
