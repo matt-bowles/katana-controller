@@ -1,6 +1,7 @@
 import JZZ from "jzz";
 import { SysExBridge } from "./SysExBridge";
 import { KatanaParameter, KatanaParameters } from "./KatanaParameters";
+import { Booster } from "./effects";
 
 interface ConnectArgs {
     deviceName?: string;
@@ -24,9 +25,13 @@ export class KatanaController {
     private readonly _deviceName: string;
     private readonly _sysex: SysExBridge;
 
+    public readonly booster: Booster;
+
     private constructor(opts: ConstructorArgs) {
         this._deviceName = opts?.deviceName ?? '2- KATANA CTRL';
         this._sysex = opts.sysExBridge;
+
+        this.booster = new Booster(this._sysex);
     }
 
     static async connect(opts?: ConnectArgs): Promise<KatanaController> {
